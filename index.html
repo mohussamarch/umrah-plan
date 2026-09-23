@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>خطة استقبال بابا وماما — أكتوبر/نوفمبر 2026</title>
+<style>
+  :root{
+    --bg:#f4f6f8;
+    --card:#ffffff;
+    --line:#e5e7eb;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --teal:#0d9488;
+    --teal-dark:#0f766e;
+    --emerald:#059669;
+    --amber:#d97706;
+    --amber-bg:#fef3c7;
+    --red:#dc2626;
+    --red-bg:#fee2e2;
+    --ok-bg:#ecfdf5;
+    --shadow:0 1px 2px rgba(15,23,42,.05), 0 4px 16px rgba(15,23,42,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,"Segoe UI",Tahoma,"Noto Naskh Arabic","Cairo",sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:980px;margin:0 auto;padding:0 14px 40px}
+
+  /* Hero */
+  .hero{
+    background:linear-gradient(135deg,#0f766e,#059669 60%,#0d9488);
+    color:#fff;
+    padding:26px 22px 24px;
+    border-radius:0 0 22px 22px;
+  }
+  .hero h1{margin:0 0 6px;font-size:22px;line-height:1.35}
+  .hero .sub{margin:0;opacity:.92;font-size:14px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .chip{
+    background:rgba(255,255,255,.16);
+    border:1px solid rgba(255,255,255,.28);
+    padding:5px 12px;border-radius:999px;font-size:12.5px;
+  }
+  .countdown{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+  .cd{
+    background:rgba(255,255,255,.14);
+    border-radius:12px;padding:8px 14px;font-size:12.5px;text-align:center;min-width:96px;
+  }
+  .cd b{display:block;font-size:20px;font-weight:800}
+
+  /* Tabs */
+  .tabs{
+    position:sticky;top:0;z-index:20;
+    display:flex;gap:6px;
+    background:rgba(244,246,248,.92);backdrop-filter:blur(8px);
+    padding:10px 14px;border-bottom:1px solid var(--line);
+  }
+  .tab-btn{
+    flex:1;border:1px solid var(--line);background:var(--card);color:var(--muted);
+    padding:9px 6px;border-radius:11px;font-size:13.5px;font-weight:600;cursor:pointer;
+    font-family:inherit;transition:.15s;
+  }
+  .tab-btn:hover{border-color:#cbd5e1}
+  .tab-btn.active{background:var(--teal);border-color:var(--teal);color:#fff}
+
+  .panel{padding-top:16px}
+  .panel[hidden]{display:none}
+
+  /* Cards / sections */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:16px;margin-bottom:14px}
+  .card h3{margin:0 0 4px;font-size:16px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin:0 0 10px}
+  .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+  .kpi .lbl{color:var(--muted);font-size:12px}
+  .kpi .val{font-size:20px;font-weight:800;margin-top:2px}
+  .kpi.warn .val{color:var(--red)}
+  .kpi.ok .val{color:var(--teal-dark)}
+
+  /* Timeline */
+  .phase{border:1px solid var(--line);background:var(--card);border-radius:16px;box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
+  .phase-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;background:transparent;border:none;width:100%;text-align:right;font-family:inherit}
+  .dot{width:14px;height:14px;border-radius:50%;flex:none;background:var(--teal);box-shadow:0 0 0 4px rgba(13,148,136,.15)}
+  .phase-head .dates{color:var(--muted);font-size:12.5px;margin:2px 0 0}
+  .phase-head .t{font-size:15.5px;font-weight:700}
+  .phase-head .arrow{margin-inline-start:auto;color:var(--muted);transition:.2s;font-size:12px}
+  .phase.open .arrow{transform:rotate(180deg)}
+  .phase-body{padding:0 16px 16px;border-top:1px dashed var(--line);display:none}
+  .phase.open .phase-body{display:block}
+  .task{display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed #eef0f3;font-size:13.5px}
+  .task:last-child{border-bottom:none}
+  .task .dt{color:var(--teal-dark);font-weight:700;white-space:nowrap;min-width:118px}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;margin-inline-start:6px;vertical-align:middle}
+  .tag.now{background:var(--amber-bg);color:var(--amber)}
+  .tag.done{background:var(--ok-bg);color:var(--emerald)}
+
+  /* Budget */
+  .switch{display:flex;gap:8px;margin-bottom:14px}
+  .switch button{flex:1;padding:9px;border-radius:11px;border:1px solid var(--line);background:var(--card);color:var(--muted);font-weight:700;cursor:pointer;font-family:inherit;font-size:13.5px}
+  .switch button.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+  .bsec{margin-bottom:18px;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:var(--card);box-shadow:var(--shadow)}
+  .bsec-head{margin-bottom:10px}
+  .bsec-head h3{margin:0;font-size:15.5px;color:var(--teal-dark)}
+  .bsec-head p{margin:2px 0 0;font-size:12.5px;color:var(--muted)}
+  .bgroup{margin-bottom:12px}
+  .bgroup h4{margin:0 0 6px;font-size:14px;color:var(--ink)}
+  .brow{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #eef0f3}
+  .brow:last-child{border-bottom:none}
+  .blabel{flex:1;border:none;background:transparent;font-size:13px;font-family:inherit;color:var(--ink);padding:4px 6px;border-radius:8px;min-width:0}
+  .blabel:focus{outline:none;background:#f0fdfa}
+  .bnum{width:82px;padding:7px 8px;border:1px solid var(--line);border-radius:10px;font-size:14px;font-weight:700;text-align:center;color:var(--ink);font-family:inherit;background:#fafbfc}
+  .bnum:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(13,148,136,.12)}
+  .bdel{background:var(--red-bg);color:var(--red);border:none;border-radius:8px;width:26px;height:26px;cursor:pointer;font-size:13px;line-height:1;flex:none}
+  .bdel:hover{background:var(--red);color:#fff}
+  .badd{margin-top:8px;width:100%;background:transparent;border:1px dashed #cbd5e1;color:var(--teal-dark);padding:7px 12px;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:700;font-size:12.5px}
+  .badd:hover{background:#f0fdfa;border-color:var(--teal)}
+  .bsub{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);padding:6px 0 0}
+  .bsub b{color:var(--teal-dark)}
+  .btotal{
+    display:flex;justify-content:space-between;align-items:center;
+    background:var(--teal);color:#fff;border-radius:12px;padding:12px 16px;font-size:14px;font-weight:700;margin-top:4px;
+  }
+  .btotal .n{font-size:20px;font-weight:800}
+  .gap{margin-top:10px;font-size:13px;padding:10px 12px;border-radius:11px}
+  .gap.bad{background:var(--red-bg);color:var(--red)}
+  .gap.good{background:var(--ok-bg);color:var(--emerald)}
+  .bar{height:10px;border-radius:999px;background:#e2e8f0;overflow:hidden;margin-top:8px}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,#f59e0b,#ef4444);border-radius:999px;transition:width .25s}
+  .bar.ok i{background:linear-gradient(90deg,#0d9488,#059669)}
+
+  /* Places */
+  .filters{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+  .filters button{padding:6px 13px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--muted);font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit}
+  .filters button.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+  .places{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:11px}
+  .place{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px;box-shadow:var(--shadow)}
+  .place .nm{font-weight:700;font-size:14px}
+  .place .cat{display:inline-block;margin-top:4px;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px}
+  .cat.park{background:var(--ok-bg);color:var(--emerald)}
+  .cat.bbq{background:var(--amber-bg);color:var(--amber)}
+  .cat.sight{background:#ede9fe;color:#6d28d9}
+  .cat.ent{background:#e0f2fe;color:#0369a1}
+  .cat.food{background:#ffe4e6;color:#be123c}
+  .place .cost{margin-top:8px;font-size:12.5px;color:var(--teal-dark);font-weight:700}
+  .place .note{margin-top:4px;font-size:12px;color:var(--muted)}
+
+  /* Checklist */
+  .ck-group{margin-bottom:16px}
+  .ck-group h4{margin:0 0 6px;font-size:14px}
+  .ck{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #eef0f3;cursor:pointer;font-size:13.5px}
+  .ck input{width:18px;height:18px;margin-top:2px;accent-color:var(--teal);cursor:pointer}
+  .ck.done label{color:var(--muted);text-decoration:line-through}
+  .progress{font-size:13px;color:var(--muted);margin-bottom:10px}
+
+  .foot{color:var(--muted);font-size:11.5px;text-align:center;margin-top:20px;line-height:1.7}
+  @media (max-width:520px){
+    .hero h1{font-size:19px}
+    .task .dt{min-width:100px}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>خطة استقبال بابا وماما + العمرة 🕋</h1>
+  <p class="sub">القاهرة ← جدة (عمرة) ← الرياض — من 22 سبتمبر لآخر نوفمبر 2026</p>
+  <div class="chips">
+    <span class="chip">🗓️ السفر 30 أكتوبر</span>
+    <span class="chip">👨‍👩‍👧‍👦 4 أفراد في الرياض</span>
+    <span class="chip">💰 هدف 3000 ريال</span>
+  </div>
+  <div class="countdown" id="countdown"></div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button class="tab-btn active" data-tab="timeline">الجدول الزمني</button>
+  <button class="tab-btn" data-tab="budget">الميزانية</button>
+  <button class="tab-btn" data-tab="places">الأماكن</button>
+  <button class="tab-btn" data-tab="checklist">المهام</button>
+</nav>
+
+<div class="wrap">
+
+  <!-- ===================== TIMELINE ===================== -->
+  <section class="panel" id="panel-timeline">
+    <div class="phase open">
+      <button class="phase-head">
+        <span class="dot"></span>
+        <span>
+          <span class="t">المرحلة 1 — التجهيز <span class="tag now">أنت هنا</span></span>
+          <div class="dates">22 سبتمبر → 27 أكتوبر 2026</div>
+        </span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="phase-body">
+        <div class="task"><span class="dt">22–29 سبتمبر</span><span>احجز تذاكر <b>القاهرة → جدة</b> + تأشيرة الوالدين + فندق مكة + سجّلهم على Nusuk.</span></div>
+        <div class="task"><span class="dt">أول أكتوبر</span><span>ابدأ تجهيزات البيت (السراير والسباكة) + جهّز السيارة للخط.</span></div>
+        <div class="task"><span class="dt">12 أكتوبر</span><span>افتتاح <b>موسم الرياض 2026</b> (البوليفارد يبدأ يشتغل) ✅</span></div>
+        <div class="task"><span class="dt">منتصف أكتوبر</span><span>احجز تذاكر الرجوع <b>الرياض → القاهرة</b> + خلّص أوضة الضيوف.</span></div>
+        <div class="task"><span class="dt">27–28 أكتوبر</span><span>تأكيد كل الحجوزات + نزول المرتب 💵.</span></div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <button class="phase-head">
+        <span class="dot"></span>
+        <span>
+          <span class="t">المرحلة 2 — العمرة في مكة</span>
+          <div class="dates">30 أكتوبر → 5 نوفمبر 2026</div>
+        </span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="phase-body">
+        <div class="task"><span class="dt">29–30 أكتوبر</span><span>سافر بالسيارة <b>الرياض → جدة</b> (~950 كم) لاستقبال الوالدين في المطار.</span></div>
+        <div class="task"><span class="dt">30 أكتوبر</span><span>الوالدين يوصلوا جدة → تاخدهم بالسيارة → <b>مكة</b>.</span></div>
+        <div class="task"><span class="dt">30 أكتوبر–5 نوفمبر</span><span>العمرة (أوضتين في الفندق) + مقابلة <b>سهيل</b> (موجود لحد 6 نوفمبر).</span></div>
+        <div class="task"><span class="dt">5–6 نوفمبر</span><span>الرجوع بالسيارة <b>مكة → الرياض</b> (~870 كم) — الكل مع بعض.</span></div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <button class="phase-head">
+        <span class="dot"></span>
+        <span>
+          <span class="t">المرحلة 3 — الرياض</span>
+          <div class="dates">نوفمبر 2026 كله</div>
+        </span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="phase-body">
+        <div class="task"><span class="dt">طول نوفمبر</span><span>إقامة في البيت + خروجات + بوليفارد وورلد وسيتي.</span></div>
+        <div class="task"><span class="dt">7 نوفمبر</span><span>WWE كراون جول في الرياض (اختياري — تذاكر على Webook).</span></div>
+        <div class="task"><span class="dt">خلال الشهر</span><span>البجيري/الدرعية، كافد، وادي حنيفة ونمار، المتحف الوطني + شوية شواء.</span></div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <button class="phase-head">
+        <span class="dot"></span>
+        <span>
+          <span class="t">المرحلة 4 — التوديع</span>
+          <div class="dates">آخر نوفمبر (28–30)</div>
+        </span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="phase-body">
+        <div class="task"><span class="dt">28–30 نوفمبر</span><span>الوالدين يرجعوا <b>الرياض → القاهرة</b> بعد شهر كامل معاك.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BUDGET ===================== -->
+  <section class="panel" id="panel-budget" hidden>
+    <div class="kpi-row">
+      <div class="kpi"><div class="lbl">ثابت (كده كده)</div><div class="val" id="kpi-fixed">0</div></div>
+      <div class="kpi"><div class="lbl">إضافي (بسبب الزيارة)</div><div class="val" id="kpi-visit">0</div></div>
+      <div class="kpi"><div class="lbl">الإجمالي الكلي</div><div class="val" id="kpi-total">0</div></div>
+    </div>
+    <div class="card">
+      <h3>حاسبة الميزانية (بالريال السعودي)</h3>
+      <p class="hint">عدّل أي رقم أو اسم، وامسح أو ضيف بنود — الإجماليات بتتحدث لحظيًا.</p>
+      <div class="switch">
+        <button id="mode-min">الاقتصادي (الحد الأدنى)</button>
+        <button id="mode-real" class="active">الواقعي المريح</button>
+      </div>
+      <div id="budget-rows"></div>
+      <div class="btotal"><span>الإجمالي الكلي</span><span class="n" id="total-val">0</span></div>
+      <div id="gap-box" class="gap bad"></div>
+      <div class="bar" id="bar-wrap"><i id="bar-fill" style="width:0%"></i></div>
+    </div>
+  </section>
+
+  <!-- ===================== PLACES ===================== -->
+  <section class="panel" id="panel-places" hidden>
+    <div class="card" style="padding-bottom:12px">
+      <h3>أماكن مقترحة في الرياض (مناسبة للوالد الكبير)</h3>
+      <p class="hint">حدائق ووديان وشواء وفطور ومطاعم مختلفة + المعالم المشهورة.</p>
+      <div class="filters" id="filters">
+        <button class="active" data-f="all">الكل</button>
+        <button data-f="park">حدائق ومنتزهات</button>
+        <button data-f="bbq">شواء وكشتة</button>
+        <button data-f="sight">سياحة ومعالم</button>
+        <button data-f="ent">ترفيه</button>
+        <button data-f="food">مطاعم وأكل</button>
+      </div>
+    </div>
+    <div class="places" id="places"></div>
+  </section>
+
+  <!-- ===================== CHECKLIST ===================== -->
+  <section class="panel" id="panel-checklist" hidden>
+    <div class="card">
+      <h3>قائمة المهام</h3>
+      <p class="progress" id="ck-progress"></p>
+      <div id="checklist"></div>
+    </div>
+  </section>
+
+  <p class="foot">الأرقام استرشادية مبنية على بحث بتاريخ 22 سبتمبر 2026 وبتتغير يوميًا.<br>أهم نصيحة: احجز تذاكر القاهرة→جدة والفندق في أقرب وقت.</p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Tabs ---------- */
+  var tabs = document.querySelectorAll('.tab-btn');
+  var panels = {
+    timeline: document.getElementById('panel-timeline'),
+    budget: document.getElementById('panel-budget'),
+    places: document.getElementById('panel-places'),
+    checklist: document.getElementById('panel-checklist')
+  };
+  tabs.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      tabs.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      Object.keys(panels).forEach(function(k){ panels[k].hidden = (k !== btn.dataset.tab); });
+    });
+  });
+
+  /* ---------- Timeline accordion ---------- */
+  document.querySelectorAll('.phase-head').forEach(function(head){
+    head.addEventListener('click', function(){
+      head.parentElement.classList.toggle('open');
+    });
+  });
+
+  /* ---------- Countdown ---------- */
+  (function(){
+    var el = document.getElementById('countdown');
+    var targets = [
+      { label:'على السفر', d:new Date('2026-10-30T00:00:00') },
+      { label:'على الرجوع للرياض', d:new Date('2026-11-05T00:00:00') }
+    ];
+    function daysTo(d){ return Math.max(0, Math.ceil((d - Date.now()) / 86400000)); }
+    el.innerHTML = targets.map(function(t){
+      return '<div class="cd"><b>'+daysTo(t.d)+'</b>يوم '+t.label+'</div>';
+    }).join('');
+  })();
+
+  /* ---------- Budget ---------- */
+  var groups = [
+    { id:'fixed', section:'fixed', title:'إصلاحات وديكور البيت', items:[
+      { id:'b4', label:'إصلاح صرف المكيف — أوضة النوم (تقديري)', min:150, real:200 },
+      { id:'b5', label:'فلتر دش', min:400, real:400 },
+      { id:'b6', label:'كرسي مكتب لندى (تقديري)', min:200, real:250 },
+      { id:'b7', label:'إصلاح مواسير حمام الغسالة (تقديري)', min:150, real:200 },
+      { id:'b3', label:'ديكورات وحاجات من تيمو (للبيت عمومًا)', min:250, real:250 }
+    ]},
+    { id:'travel', section:'visit', title:'السفر والعمرة', items:[
+      { id:'f1', label:'تذاكر القاهرة → جدة (فردين)', min:600, real:800 },
+      { id:'f4', label:'تذاكر الرياض → القاهرة رجوع (فردين)', min:700, real:1000 },
+      { id:'v1', label:'تأشيرة الوالدين (إن لزمت)', min:800, real:1000 },
+      { id:'h1', label:'فندق مكة (أوضتين × 3 ليالي)', min:720, real:1200 },
+      { id:'g1', label:'بنزين السيارة (رياض⇄مكة ~1900 كم)', min:340, real:360 },
+      { id:'u1', label:'إحرام وأغراض العمرة', min:100, real:150 }
+    ]},
+    { id:'room', section:'visit', title:'تجهيز غرفتهم', items:[
+      { id:'b1', label:'سراير ومراتب نفر ونص (2 سرير × 450)', min:900, real:900 },
+      { id:'b2', label:'سجادة من الحراج (تقديري)', min:100, real:150 }
+    ]},
+    { id:'stay', section:'visit', title:'الإقامة والخروجات (نوفمبر)', items:[
+      { id:'e1', label:'الزيادة المتوقعة في الأكل (فوق العادي)', min:500, real:800 },
+      { id:'e2', label:'خروجات + بوليفارد (4 أفراد)', min:400, real:800 },
+      { id:'e3', label:'مواصلات داخل الرياض', min:150, real:300 },
+      { id:'e4', label:'احتياطي طوارئ', min:200, real:500 }
+    ]}
+  ];
+
+  var sections = {
+    fixed: { title:'مصاريف كده كده (ثابتة/شهرية)', note:'هتدفعها على أي حال — مش مرتبطة بزيارتهم' },
+    visit: { title:'مصاريف إضافية بسبب الزيارة', note:'دي التكلفة الفعلية لاستقبالهم — الهدف 3000 ريال' }
+  };
+
+  var mode = 'real';
+  var container = document.getElementById('budget-rows');
+
+  /* ---------- حفظ التعديلات (على جهاز المستخدم) ---------- */
+  var STORE_KEY = 'plan-2026-v1';
+  function loadState(){
+    try { return JSON.parse(localStorage.getItem(STORE_KEY) || 'null'); }
+    catch(e){ return null; }
+  }
+  function saveState(){
+    try {
+      localStorage.setItem(STORE_KEY, JSON.stringify({ groups: groups, mode: mode, done: done }));
+    } catch(e){ /* المعاينة المعزولة بتمنع التخزين — بنتجاهل بهدوء */ }
+  }
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function findItem(id){
+    for (var i=0;i<groups.length;i++){
+      var it = groups[i].items.find(function(x){ return x.id === id; });
+      if (it) return { group: groups[i], item: it };
+    }
+    return null;
+  }
+
+  function rowHtml(it){
+    var v = mode === 'min' ? it.min : it.real;
+    return '<div class="brow" data-row="'+it.id+'">'+
+      '<input class="blabel" type="text" value="'+esc(it.label)+'" data-label="'+it.id+'">'+
+      '<input class="bnum" type="number" min="0" step="10" value="'+v+'" data-num="'+it.id+'">'+
+      '<button class="bdel" title="حذف البند" data-del="'+it.id+'">✕</button>'+
+    '</div>';
+  }
+
+  function renderBudget(){
+    container.innerHTML = Object.keys(sections).map(function(sk){
+      var sec = sections[sk];
+      var list = groups.filter(function(g){ return g.section === sk; });
+      if (!list.length) return '';
+      var body = list.map(function(g){
+        var rows = g.items.map(rowHtml).join('');
+        return '<div class="bgroup"><h4>'+g.title+'</h4>'+rows+
+          '<button class="badd" data-add="'+g.id+'">+ إضافة بند</button>'+
+          '<div class="bsub"><span>مجموع</span><b id="sub-'+g.id+'">0</b></div>'+
+        '</div>';
+      }).join('');
+      return '<div class="bsec"><div class="bsec-head"><h3>'+sec.title+'</h3><p>'+sec.note+'</p></div>'+body+'</div>';
+    }).join('');
+    compute();
+  }
+
+  function compute(){
+    var fixedTotal = 0, visitTotal = 0;
+    groups.forEach(function(g){
+      var gSum = 0;
+      g.items.forEach(function(it){
+        var inp = container.querySelector('input[data-num="'+it.id+'"]');
+        gSum += parseFloat(inp && inp.value) || 0;
+      });
+      var sub = document.getElementById('sub-'+g.id);
+      if (sub) sub.textContent = fmt(gSum);
+      if (g.section === 'fixed') fixedTotal += gSum; else visitTotal += gSum;
+    });
+    var grand = fixedTotal + visitTotal;
+    var goal = 3000;
+    var gap = visitTotal - goal;
+    document.getElementById('kpi-fixed').textContent = fmt(fixedTotal);
+    document.getElementById('kpi-visit').textContent = fmt(visitTotal);
+    document.getElementById('kpi-total').textContent = fmt(grand);
+    document.getElementById('total-val').textContent = fmt(grand);
+    var gapEl = document.getElementById('gap-box');
+    if (gap > 0){
+      gapEl.className = 'gap bad';
+      gapEl.innerHTML = '⚠️ <b>تكلفة الزيارة فايضة '+fmt(gap)+' ريال</b> فوق الهدف 3000 — قلّل ليالي مكة أو احجز بدري.';
+    } else {
+      gapEl.className = 'gap good';
+      gapEl.innerHTML = '✅ <b>موفّر '+fmt(-gap)+' ريال</b> تحت الهدف 3000 — ممتاز!';
+    }
+    var pct = Math.min(100, Math.round(visitTotal / goal * 100));
+    document.getElementById('bar-fill').style.width = pct + '%';
+    document.getElementById('bar-wrap').className = 'bar' + (gap > 0 ? '' : ' ok');
+  }
+
+  function fmt(n){ return Math.round(n).toLocaleString('en-US'); }
+
+  container.addEventListener('input', function(e){
+    var t = e.target;
+    if (t.hasAttribute('data-num')){
+      var f = findItem(t.dataset.num);
+      if (f){ var v = parseFloat(t.value) || 0; f.item.min = v; f.item.real = v; }
+      compute();
+      saveState();
+    } else if (t.hasAttribute('data-label')){
+      var f = findItem(t.dataset.label);
+      if (f) f.item.label = t.value;
+      saveState();
+    }
+  });
+
+  container.addEventListener('click', function(e){
+    var btn = e.target.closest('button');
+    if (!btn) return;
+    if (btn.hasAttribute('data-del')){
+      var f = findItem(btn.dataset.del);
+      if (f){
+        f.group.items = f.group.items.filter(function(x){ return x.id !== f.item.id; });
+        renderBudget();
+        saveState();
+      }
+    } else if (btn.hasAttribute('data-add')){
+      var g = groups.find(function(x){ return x.id === btn.dataset.add; });
+      if (g){
+        g.items.push({ id:'c'+Date.now()+Math.floor(Math.random()*999), label:'بند جديد', min:0, real:0 });
+        renderBudget();
+        saveState();
+      }
+    }
+  });
+
+  document.getElementById('mode-min').addEventListener('click', function(){
+    mode = 'min';
+    document.getElementById('mode-min').classList.add('active');
+    document.getElementById('mode-real').classList.remove('active');
+    renderBudget();
+    saveState();
+  });
+  document.getElementById('mode-real').addEventListener('click', function(){
+    mode = 'real';
+    document.getElementById('mode-real').classList.add('active');
+    document.getElementById('mode-min').classList.remove('active');
+    renderBudget();
+    saveState();
+  });
+
+  /* ---------- Places ---------- */
+  var places = [
+    { name:'وادي حنيفة', cat:'park', cost:'مجاني', note:'ممشى طويل + أماكن شواء وجلسات — أنسب خروجة للوالد الكبير.' },
+    { name:'بحيرة وادي نمار', cat:'park', cost:'مجاني', note:'إطلالة على المية وشواء — حلوة وقت الغروب.' },
+    { name:'منتزه الملك عبدالله (الملز)', cat:'park', cost:'5–10 ريال', note:'مسطحات خضراء ونوافير وممشى هادي.' },
+    { name:'منتزه السلام', cat:'park', cost:'مجاني/رمزي', note:'حدائق واسعة وجلسات عائلية.' },
+    { name:'روضة خريم', cat:'bbq', cost:'مجاني', note:'أشهر كشتة وشواء في الرياض (أجمل بعد المطر).' },
+    { name:'الثمامة (الرمال)', cat:'bbq', cost:'مجاني', note:'كشتة وشواء وسط الطبيعة، محتاج سيارة عالية ساعات.' },
+    { name:'مطل البجيري (الدرعية)', cat:'sight', cost:'دخول مجاني + أكل', note:'إطلالة على حي الطريف التراثي — أحلى خروجة مسائية.' },
+    { name:'الدرعية التاريخية (حي الطريف)', cat:'sight', cost:'10–50 ريال', note:'موقع تراثي مسجل في اليونسكو.' },
+    { name:'كافد (مركز الملك عبدالله المالي)', cat:'sight', cost:'مجاني للتجول', note:'مبانٍ حديثة وممشى ومطاعم — شكل مختلف تمامًا عن مصر.' },
+    { name:'المتحف الوطني + قصر المربع', cat:'sight', cost:'10–20 ريال', note:'سياحة ثقافية، والوالد هيعجبه التاريخ.' },
+    { name:'البوليفارد (سيتي/وورلد)', cat:'ent', cost:'25–55 ريال', note:'الحد الأقصى للترفيه — مرة واحدة يوم أسبوع.' },
+    { name:'مندي ومظبي (مطاعم يمنية)', cat:'food', cost:'30–60 ريال/فرد', note:'تجربة أكل مختلفة تمامًا عن مصر.' },
+    { name:'مطاعم نجدية (جريش/مرقوق/مطازيز)', cat:'food', cost:'40–80 ريال/فرد', note:'الأكل التراثي السعودي.' },
+    { name:'فطور سعودي (تميس/فول/قلابة)', cat:'food', cost:'15–35 ريال/فرد', note:'أماكن الفطور الشعبية المشهورة.' }
+  ];
+
+  var catClass = { park:'park', bbq:'bbq', sight:'sight', ent:'ent', food:'food' };
+  var catName = { park:'حدائق', bbq:'شواء وكشتة', sight:'سياحة ومعالم', ent:'ترفيه', food:'مطاعم وأكل' };
+
+  function renderPlaces(filter){
+    document.getElementById('places').innerHTML = places.filter(function(p){
+      return filter === 'all' || p.cat === filter;
+    }).map(function(p){
+      return '<div class="place">'+
+        '<div class="nm">'+p.name+'</div>'+
+        '<span class="cat '+catClass[p.cat]+'">'+catName[p.cat]+'</span>'+
+        '<div class="cost">💵 '+p.cost+'</div>'+
+        '<div class="note">'+p.note+'</div>'+
+      '</div>';
+    }).join('');
+  }
+
+  document.getElementById('filters').addEventListener('click', function(e){
+    var btn = e.target.closest('button');
+    if (!btn) return;
+    document.querySelectorAll('#filters button').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    renderPlaces(btn.dataset.f);
+  });
+
+  /* ---------- Checklist ---------- */
+  var checklist = [
+    { g:'قبل السفر (22 سبتمبر – 27 أكتوبر)', items:[
+      'احجز تذاكر القاهرة → جدة (الوالدين)',
+      'احجز تذاكر الرجوع الرياض → القاهرة (الوالدين)',
+      'اعمل تأشيرة الوالدين + سجّلهم على Nusuk',
+      'احجز فندق مكة (أوضتين)',
+      'اشترِ السراير والمراتب + السجادة والديكورات',
+      'اعمل إصلاحات المكيف والسباكة + فلتر الدش وكرسي المكتب'
+    ]},
+    { g:'مرحلة العمرة (30 أكتوبر – 5 نوفمبر)', items:[
+      'جهّز الإحرام وأغراض العمرة',
+      'اعمل صيانة سريعة للسيارة قبل الخط (زيت/كاوتش/مياه)',
+      'حدد ميقات الإحرام (قرن المنازل على الطريق)',
+      'نسّق مقابلة سهيل في مكة'
+    ]},
+    { g:'الرياض (نوفمبر)', items:[
+      'نزّل Webook واحجز تذاكر البوليفارد',
+      'خطط لخروجة الدرعية/المتحف',
+      'تأكد من تذاكر الرجوع للقاهرة'
+    ]}
+  ];
+  var done = {};
+  var totalTasks = checklist.reduce(function(a,g){ return a + g.items.length; }, 0);
+
+  function renderChecklist(){
+    document.getElementById('checklist').innerHTML = checklist.map(function(g){
+      var items = g.items.map(function(it, idx){
+        var key = g.g + '|' + idx;
+        var checked = done[key] ? 'checked' : '';
+        var cls = done[key] ? 'ck done' : 'ck';
+        return '<div class="'+cls+'" data-key="'+key+'">'+
+          '<input type="checkbox" '+checked+'><label>'+it+'</label></div>';
+      }).join('');
+      return '<div class="ck-group"><h4>'+g.g+'</h4>'+items+'</div>';
+    }).join('');
+    updateProgress();
+  }
+  function updateProgress(){
+    var n = Object.keys(done).filter(function(k){ return done[k]; }).length;
+    document.getElementById('ck-progress').textContent = 'تم '+n+' من '+totalTasks+' مهام';
+  }
+  document.getElementById('checklist').addEventListener('change', function(e){
+    if (e.target.tagName === 'INPUT'){
+      var row = e.target.closest('.ck');
+      done[row.dataset.key] = e.target.checked;
+      row.classList.toggle('done', e.target.checked);
+      updateProgress();
+      saveState();
+    }
+  });
+
+  /* ---------- Init ---------- */
+  var saved = loadState();
+  if (saved){
+    if (Array.isArray(saved.groups) && saved.groups.length) groups = saved.groups;
+    if (saved.mode === 'min' || saved.mode === 'real') mode = saved.mode;
+    if (saved.done && typeof saved.done === 'object') done = saved.done;
+  }
+  document.getElementById('mode-min').classList.toggle('active', mode === 'min');
+  document.getElementById('mode-real').classList.toggle('active', mode === 'real');
+  renderBudget();
+  renderPlaces('all');
+  renderChecklist();
+})();
+</script>
+</body>
+</html>
