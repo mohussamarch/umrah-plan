@@ -195,20 +195,25 @@
   .dd-empty{color:var(--muted);padding:6px 0}
 
   /* Gantt */
-  .gantt{padding:6px 0;overflow-x:auto}
-  .g-axis{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);margin-bottom:2px}
-  .g-track{position:relative;height:76px;border-bottom:2px solid #e2e8f0}
-  .g-mark{position:absolute;top:0;width:2px;height:100%}
-  .g-mark .g-dot{position:absolute;left:-5px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--teal);border:2px solid #fff;box-shadow:0 0 0 1px var(--teal);z-index:2}
-  .g-mark .g-mlabel{position:absolute;left:10px;top:0;font-size:10px;line-height:1.3;color:var(--ink);white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis}
-  .g-mark[data-above="1"] .g-mlabel{top:auto;bottom:0}
-  .g-tasks{margin-top:10px}
-  .g-taskrow{display:grid;grid-template-columns:minmax(0,110px) 1fr 68px;gap:8px;align-items:center;margin-bottom:6px;font-size:11px}
-  .g-taskname{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink)}
-  .g-tasklane{position:relative;height:16px;background:#eef0f3;border-radius:6px;overflow:hidden}
-  .g-task{position:absolute;top:0;height:100%;border-radius:6px;background:linear-gradient(90deg,#fbbf24,#f59e0b)}
-  .g-task.done{background:linear-gradient(90deg,#0d9488,#059669)}
-  .g-taskdl{color:var(--muted);white-space:nowrap;text-align:left}
+  .g-chart{margin-bottom:12px}
+  .g-axisline{position:relative;height:22px}
+  .g-linebg{position:absolute;left:0;right:0;top:10px;height:2px;background:#e2e8f0;border-radius:2px}
+  .g-dot{position:absolute;top:4px;width:14px;height:14px;border-radius:50%;background:var(--teal);border:2px solid #fff;box-shadow:0 0 0 1.5px var(--teal);transform:translateX(-50%);cursor:help}
+  .g-months{position:relative;height:15px;font-size:10px;color:var(--muted)}
+  .g-months span{position:absolute;white-space:nowrap}
+  .g-legend{margin-bottom:12px}
+  .g-leg{display:flex;align-items:center;gap:6px;font-size:11.5px;padding:3px 0;border-bottom:1px dashed #f1f5f9}
+  .g-legdot{width:9px;height:9px;border-radius:50%;background:var(--teal);flex:none}
+  .g-leg b{color:var(--teal-dark);white-space:nowrap;font-size:11px}
+  .g-leg span{color:var(--ink)}
+  .g-tasks{margin-top:4px}
+  .g-titem{margin-bottom:10px}
+  .g-thead{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;margin-bottom:3px}
+  .g-tname{color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .g-tdl{color:var(--muted);white-space:nowrap;flex:none;font-size:11px}
+  .g-tlane{position:relative;height:14px;background:#eef0f3;border-radius:6px;overflow:hidden}
+  .g-tbar{position:absolute;left:0;top:0;height:100%;border-radius:6px;background:linear-gradient(90deg,#fbbf24,#f59e0b)}
+  .g-tbar.done{background:linear-gradient(90deg,#0d9488,#059669)}
   .g-nodl{margin-top:8px;font-size:11.5px;color:var(--muted)}
 
   .foot{color:var(--muted);font-size:11.5px;text-align:center;margin-top:20px;line-height:1.7}
@@ -721,34 +726,49 @@
     var total = end - start;
     function x(date){ return Math.max(0, Math.min(100, (pdate(date).getTime() - start) / total * 100)); }
 
-    var mHtml = milestones.map(function(m, i){
-      var above = i % 2 === 0;
-      return '<div class="g-mark" style="left:'+x(m.date)+'%" data-above="'+(above?'1':'0')+'">'+
-        '<div class="g-dot" title="'+esc(m.icon+' '+m.label+' — '+fmtDateAr(m.date))+'"></div>'+
-        '<div class="g-mlabel">'+m.icon+' '+m.label+'</div>'+
-      '</div>';
+    var monthMarks = [
+      { date:'2026-09-22', label:'22 سبتمبر' },
+      { date:'2026-10-01', label:'أكتوبر' },
+      { date:'2026-11-01', label:'نوفمبر' },
+      { date:'2026-11-30', label:'30 نوفمبر' }
+    ];
+    var monthsHtml = monthMarks.map(function(m){
+      var st;
+      if (m.date === RANGE_START) st = 'left:0';
+      else if (m.date === RANGE_END) st = 'right:0';
+      else st = 'left:'+x(m.date)+'%;transform:translateX(-50%)';
+      return '<span style="'+st+'">'+m.label+'</span>';
+    }).join('');
+
+    var dotsHtml = milestones.map(function(m){
+      return '<div class="g-dot" style="left:'+x(m.date)+'%" title="'+esc(m.icon+' '+m.label+' — '+fmtDateAr(m.date))+'"></div>';
+    }).join('');
+
+    var legendHtml = milestones.slice().sort(function(a,b){ return a.date < b.date ? -1 : (a.date > b.date ? 1 : 0); }).map(function(m){
+      return '<div class="g-leg"><span class="g-legdot"></span><b>'+fmtDateAr(m.date)+'</b><span>'+m.icon+' '+m.label+'</span></div>';
     }).join('');
 
     var withDl = tasks.filter(function(t){ return t.deadline; });
     var noDl = tasks.filter(function(t){ return !t.deadline; });
 
     var tHtml = withDl.map(function(t){
-      var w = Math.max(2, x(t.deadline) - x(RANGE_START));
-      return '<div class="g-taskrow">'+
-        '<span class="g-taskname" title="'+esc(t.text)+'">'+esc(t.text)+'</span>'+
-        '<div class="g-tasklane"><div class="g-task '+(t.done?'done':'')+'" style="left:'+x(RANGE_START)+'%;width:'+w+'%" title="'+esc(t.text)+' — ديدلاين '+fmtDateAr(t.deadline)+'"></div></div>'+
-        '<span class="g-taskdl">'+fmtDateAr(t.deadline)+'</span>'+
+      var w = Math.max(3, x(t.deadline));
+      return '<div class="g-titem">'+
+        '<div class="g-thead"><span class="g-tname" title="'+esc(t.text)+'">'+esc(t.text)+'</span><span class="g-tdl">'+fmtDateAr(t.deadline)+'</span></div>'+
+        '<div class="g-tlane"><div class="g-tbar '+(t.done?'done':'')+'" style="width:'+w+'%" title="'+esc(t.text)+' — ديدلاين '+fmtDateAr(t.deadline)+'"></div></div>'+
       '</div>';
     }).join('');
 
     var noDlHtml = noDl.length ? '<div class="g-nodl">بدون ديدلاين: '+noDl.map(function(t){ return esc(t.text); }).join('، ')+'</div>' : '';
 
     document.getElementById('gantt').innerHTML =
-      '<div class="gantt" dir="ltr">'+
-        '<div class="g-axis"><span>22 سبتمبر</span><span>أكتوبر</span><span>نوفمبر</span><span>30 نوفمبر</span></div>'+
-        '<div class="g-track">'+mHtml+'</div>'+
-        '<div class="g-tasks">'+tHtml+'</div>'+
-      '</div>'+noDlHtml;
+      '<div class="g-chart">'+
+        '<div class="g-axisline"><div class="g-linebg"></div>'+dotsHtml+'</div>'+
+        '<div class="g-months">'+monthsHtml+'</div>'+
+      '</div>'+
+      '<div class="g-legend">'+legendHtml+'</div>'+
+      '<div class="g-tasks">'+tHtml+'</div>'+
+      noDlHtml;
   }
 
   function refreshViews(){
