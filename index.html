@@ -150,13 +150,66 @@
   .place .cost{margin-top:8px;font-size:12.5px;color:var(--teal-dark);font-weight:700}
   .place .note{margin-top:4px;font-size:12px;color:var(--muted)}
 
-  /* Checklist */
-  .ck-group{margin-bottom:16px}
-  .ck-group h4{margin:0 0 6px;font-size:14px}
-  .ck{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #eef0f3;cursor:pointer;font-size:13.5px}
-  .ck input{width:18px;height:18px;margin-top:2px;accent-color:var(--teal);cursor:pointer}
-  .ck.done label{color:var(--muted);text-decoration:line-through}
+  /* Tasks */
+  .tadd{width:100%;padding:9px;border:1px dashed #cbd5e1;background:transparent;color:var(--teal-dark);border-radius:11px;font-weight:700;cursor:pointer;font-family:inherit;font-size:13px;margin-bottom:10px}
+  .tadd:hover{background:#f0fdfa;border-color:var(--teal)}
+  .tcard{border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:9px;background:var(--card)}
+  .tcard.done{opacity:.6}
+  .trow{display:flex;align-items:center;gap:8px}
+  .trow.sub{margin-top:7px}
+  .tdone{width:18px;height:18px;accent-color:var(--teal);flex:none;cursor:pointer}
+  .ttext{flex:1;border:none;background:transparent;font-size:13.5px;font-family:inherit;color:var(--ink);padding:4px 6px;border-radius:8px;min-width:0}
+  .ttext:focus{outline:none;background:#f0fdfa}
+  .tcard.done .ttext{text-decoration:line-through;color:var(--muted)}
+  .tdel{background:var(--red-bg);color:var(--red);border:none;border-radius:8px;width:26px;height:26px;cursor:pointer;flex:none;font-size:13px;line-height:1}
+  .tdel:hover{background:var(--red);color:#fff}
+  .tlbl{font-size:11.5px;color:var(--muted);font-weight:700;white-space:nowrap}
+  .tdate{flex:1;border:1px solid var(--line);border-radius:9px;padding:6px 8px;font-size:12.5px;font-family:inherit;color:var(--ink);background:#fafbfc;max-width:150px}
+  .tspacer{flex:1}
+  .tbtn{background:var(--card);border:1px solid var(--line);color:var(--muted);border-radius:8px;width:28px;height:28px;cursor:pointer;font-size:12px;line-height:1;flex:none}
+  .tbtn:hover{border-color:var(--teal);color:var(--teal)}
+  .tbtn.gap{visibility:hidden}
   .progress{font-size:13px;color:var(--muted);margin-bottom:10px}
+
+  /* Calendar */
+  .cal-month{margin-bottom:14px}
+  .cal-month h5{margin:0 0 5px;font-size:13px;color:var(--teal-dark)}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+  .cal-wd{text-align:center;font-size:10px;color:var(--muted);padding:2px 0;font-weight:700}
+  .cal-cell{min-height:42px;border:1px solid var(--line);border-radius:8px;padding:3px;cursor:pointer;position:relative;background:var(--card)}
+  .cal-cell.empty{background:transparent;border-color:transparent;cursor:default}
+  .cal-cell.past{opacity:.45}
+  .cal-cell.today{border:2px solid var(--amber);background:var(--amber-bg)}
+  .cal-cell.sel{box-shadow:inset 0 0 0 2px var(--teal)}
+  .cnum{font-size:12px;font-weight:700;color:var(--ink)}
+  .cdots{display:flex;gap:2px;margin-top:2px;flex-wrap:wrap}
+  .cdot{width:7px;height:7px;border-radius:50%;display:inline-block}
+  .cdot.m{background:var(--teal)}
+  .cdot.t{background:var(--amber)}
+  .daydetail{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px;font-size:13px}
+  .dd-head{font-weight:800;color:var(--teal-dark);margin-bottom:6px}
+  .dd-wd{color:var(--muted);font-weight:600;font-size:12px}
+  .dd-ms{padding:5px 0;border-bottom:1px dashed #eef0f3}
+  .dd-task{padding:5px 0;border-bottom:1px dashed #eef0f3;color:var(--amber)}
+  .dd-task.done{color:var(--muted);text-decoration:line-through}
+  .dd-empty{color:var(--muted);padding:6px 0}
+
+  /* Gantt */
+  .gantt{padding:6px 0;overflow-x:auto}
+  .g-axis{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);margin-bottom:2px}
+  .g-track{position:relative;height:76px;border-bottom:2px solid #e2e8f0}
+  .g-mark{position:absolute;top:0;width:2px;height:100%}
+  .g-mark .g-dot{position:absolute;left:-5px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--teal);border:2px solid #fff;box-shadow:0 0 0 1px var(--teal);z-index:2}
+  .g-mark .g-mlabel{position:absolute;left:10px;top:0;font-size:10px;line-height:1.3;color:var(--ink);white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis}
+  .g-mark[data-above="1"] .g-mlabel{top:auto;bottom:0}
+  .g-tasks{margin-top:10px}
+  .g-taskrow{display:grid;grid-template-columns:minmax(0,110px) 1fr 68px;gap:8px;align-items:center;margin-bottom:6px;font-size:11px}
+  .g-taskname{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink)}
+  .g-tasklane{position:relative;height:16px;background:#eef0f3;border-radius:6px;overflow:hidden}
+  .g-task{position:absolute;top:0;height:100%;border-radius:6px;background:linear-gradient(90deg,#fbbf24,#f59e0b)}
+  .g-task.done{background:linear-gradient(90deg,#0d9488,#059669)}
+  .g-taskdl{color:var(--muted);white-space:nowrap;text-align:left}
+  .g-nodl{margin-top:8px;font-size:11.5px;color:var(--muted)}
 
   .foot{color:var(--muted);font-size:11.5px;text-align:center;margin-top:20px;line-height:1.7}
   @media (max-width:520px){
@@ -187,71 +240,18 @@
 
 <div class="wrap">
 
-  <!-- ===================== TIMELINE ===================== -->
+  <!-- ===================== TIMELINE (calendar + gantt) ===================== -->
   <section class="panel" id="panel-timeline">
-    <div class="phase open">
-      <button class="phase-head">
-        <span class="dot"></span>
-        <span>
-          <span class="t">المرحلة 1 — التجهيز <span class="tag now">أنت هنا</span></span>
-          <div class="dates">22 سبتمبر → 27 أكتوبر 2026</div>
-        </span>
-        <span class="arrow">▼</span>
-      </button>
-      <div class="phase-body">
-        <div class="task"><span class="dt">22–29 سبتمبر</span><span>احجز تذاكر <b>القاهرة → جدة</b> + تأشيرة الوالدين + فندق مكة + سجّلهم على Nusuk.</span></div>
-        <div class="task"><span class="dt">أول أكتوبر</span><span>ابدأ تجهيزات البيت (السراير والسباكة) + جهّز السيارة للخط.</span></div>
-        <div class="task"><span class="dt">12 أكتوبر</span><span>افتتاح <b>موسم الرياض 2026</b> (البوليفارد يبدأ يشتغل) ✅</span></div>
-        <div class="task"><span class="dt">منتصف أكتوبر</span><span>احجز تذاكر الرجوع <b>الرياض → القاهرة</b> + خلّص أوضة الضيوف.</span></div>
-        <div class="task"><span class="dt">27–28 أكتوبر</span><span>تأكيد كل الحجوزات + نزول المرتب 💵.</span></div>
-      </div>
+    <div class="card" style="padding-bottom:12px">
+      <h3>🗓️ الكالندر</h3>
+      <p class="hint">اضغط على أي يوم عشان تشوف أحداثه والديدلاين اللي فيه.</p>
+      <div id="calendar"></div>
+      <div id="daydetail" class="daydetail"></div>
     </div>
-
-    <div class="phase">
-      <button class="phase-head">
-        <span class="dot"></span>
-        <span>
-          <span class="t">المرحلة 2 — العمرة في مكة</span>
-          <div class="dates">30 أكتوبر → 5 نوفمبر 2026</div>
-        </span>
-        <span class="arrow">▼</span>
-      </button>
-      <div class="phase-body">
-        <div class="task"><span class="dt">29–30 أكتوبر</span><span>سافر بالسيارة <b>الرياض → جدة</b> (~950 كم) لاستقبال الوالدين في المطار.</span></div>
-        <div class="task"><span class="dt">30 أكتوبر</span><span>الوالدين يوصلوا جدة → تاخدهم بالسيارة → <b>مكة</b>.</span></div>
-        <div class="task"><span class="dt">30 أكتوبر–5 نوفمبر</span><span>العمرة (أوضتين في الفندق) + مقابلة <b>سهيل</b> (موجود لحد 6 نوفمبر).</span></div>
-        <div class="task"><span class="dt">5–6 نوفمبر</span><span>الرجوع بالسيارة <b>مكة → الرياض</b> (~870 كم) — الكل مع بعض.</span></div>
-      </div>
-    </div>
-
-    <div class="phase">
-      <button class="phase-head">
-        <span class="dot"></span>
-        <span>
-          <span class="t">المرحلة 3 — الرياض</span>
-          <div class="dates">نوفمبر 2026 كله</div>
-        </span>
-        <span class="arrow">▼</span>
-      </button>
-      <div class="phase-body">
-        <div class="task"><span class="dt">طول نوفمبر</span><span>إقامة في البيت + خروجات + بوليفارد وورلد وسيتي.</span></div>
-        <div class="task"><span class="dt">7 نوفمبر</span><span>WWE كراون جول في الرياض (اختياري — تذاكر على Webook).</span></div>
-        <div class="task"><span class="dt">خلال الشهر</span><span>البجيري/الدرعية، كافد، وادي حنيفة ونمار، المتحف الوطني + شوية شواء.</span></div>
-      </div>
-    </div>
-
-    <div class="phase">
-      <button class="phase-head">
-        <span class="dot"></span>
-        <span>
-          <span class="t">المرحلة 4 — التوديع</span>
-          <div class="dates">آخر نوفمبر (28–30)</div>
-        </span>
-        <span class="arrow">▼</span>
-      </button>
-      <div class="phase-body">
-        <div class="task"><span class="dt">28–30 نوفمبر</span><span>الوالدين يرجعوا <b>الرياض → القاهرة</b> بعد شهر كامل معاك.</span></div>
-      </div>
+    <div class="card">
+      <h3>📏 المخطط الزمني</h3>
+      <p class="hint">الخط الأفقي بيمشي على التواريخ، وكل مهمة شريط من دلوقتي لحد الديدلاين بتاعها.</p>
+      <div id="gantt"></div>
     </div>
   </section>
 
@@ -293,12 +293,13 @@
     <div class="places" id="places"></div>
   </section>
 
-  <!-- ===================== CHECKLIST ===================== -->
+  <!-- ===================== TASKS ===================== -->
   <section class="panel" id="panel-checklist" hidden>
     <div class="card">
-      <h3>قائمة المهام</h3>
+      <h3>✅ المهام (قابلة للتعديل والترتيب)</h3>
       <p class="progress" id="ck-progress"></p>
-      <div id="checklist"></div>
+      <button class="tadd" id="task-add">+ إضافة مهمة</button>
+      <div id="tasks"></div>
     </div>
   </section>
 
@@ -325,12 +326,7 @@
     });
   });
 
-  /* ---------- Timeline accordion ---------- */
-  document.querySelectorAll('.phase-head').forEach(function(head){
-    head.addEventListener('click', function(){
-      head.parentElement.classList.toggle('open');
-    });
-  });
+  /* (الجدول الزمني بقى كالندر + مخطط زمني — بيتعمروا تحت) */
 
   /* ---------- Countdown ---------- */
   (function(){
@@ -390,7 +386,7 @@
   }
   function saveState(){
     try {
-      localStorage.setItem(STORE_KEY, JSON.stringify({ groups: groups, mode: mode, done: done }));
+      localStorage.setItem(STORE_KEY, JSON.stringify({ groups: groups, mode: mode, tasks: tasks }));
     } catch(e){ /* المعاينة المعزولة بتمنع التخزين — بنتجاهل بهدوء */ }
   }
 
@@ -555,70 +551,225 @@
     renderPlaces(btn.dataset.f);
   });
 
-  /* ---------- Checklist ---------- */
-  var checklist = [
-    { g:'قبل السفر (22 سبتمبر – 27 أكتوبر)', items:[
-      'احجز تذاكر القاهرة → جدة (الوالدين)',
-      'احجز تذاكر الرجوع الرياض → القاهرة (الوالدين)',
-      'اعمل تأشيرة الوالدين + سجّلهم على Nusuk',
-      'احجز فندق مكة (أوضتين)',
-      'اشترِ السراير والمراتب + السجادة والديكورات',
-      'اعمل إصلاحات المكيف والسباكة + فلتر الدش وكرسي المكتب'
-    ]},
-    { g:'مرحلة العمرة (30 أكتوبر – 5 نوفمبر)', items:[
-      'جهّز الإحرام وأغراض العمرة',
-      'اعمل صيانة سريعة للسيارة قبل الخط (زيت/كاوتش/مياه)',
-      'حدد ميقات الإحرام (قرن المنازل على الطريق)',
-      'نسّق مقابلة سهيل في مكة'
-    ]},
-    { g:'الرياض (نوفمبر)', items:[
-      'نزّل Webook واحجز تذاكر البوليفارد',
-      'خطط لخروجة الدرعية/المتحف',
-      'تأكد من تذاكر الرجوع للقاهرة'
-    ]}
-  ];
-  var done = {};
-  var totalTasks = checklist.reduce(function(a,g){ return a + g.items.length; }, 0);
+  /* ---------- المهام + الكالندر + المخطط الزمني ---------- */
+  var MONTHS = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  var WD = ['أحد','اثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت'];
+  var RANGE_START = '2026-09-22';
+  var RANGE_END = '2026-11-30';
+  var TODAY = '2026-09-22';
 
-  function renderChecklist(){
-    document.getElementById('checklist').innerHTML = checklist.map(function(g){
-      var items = g.items.map(function(it, idx){
-        var key = g.g + '|' + idx;
-        var checked = done[key] ? 'checked' : '';
-        var cls = done[key] ? 'ck done' : 'ck';
-        return '<div class="'+cls+'" data-key="'+key+'">'+
-          '<input type="checkbox" '+checked+'><label>'+it+'</label></div>';
-      }).join('');
-      return '<div class="ck-group"><h4>'+g.g+'</h4>'+items+'</div>';
+  function pdate(s){ return new Date(s + 'T00:00:00'); }
+  function iso(d){ return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+  function fmtDateAr(s){ var d = pdate(s); return d.getDate() + ' ' + MONTHS[d.getMonth()]; }
+
+  var milestones = [
+    { date:'2026-09-22', label:'البداية — ابدأ الحجز والتجهيز', icon:'🚀' },
+    { date:'2026-10-12', label:'افتتاح موسم الرياض 2026', icon:'🎪' },
+    { date:'2026-10-27', label:'سهيل يبدأ عمرته', icon:'🕋' },
+    { date:'2026-10-28', label:'نزول المرتب', icon:'💵' },
+    { date:'2026-10-30', label:'السفر بالسيارة + الوالدين يوصلوا جدة', icon:'🚗' },
+    { date:'2026-11-05', label:'الرجوع بالسيارة للرياض', icon:'🏠' },
+    { date:'2026-11-06', label:'سهيل ينهي عمرته', icon:'🕋' },
+    { date:'2026-11-07', label:'WWE كراون جول (اختياري)', icon:'🤼' },
+    { date:'2026-11-30', label:'توديع الوالدين', icon:'✈️' }
+  ];
+
+  var tasks = [
+    { id:'t1',  text:'احجز تذاكر القاهرة → جدة (الوالدين)', deadline:'2026-09-29', done:false },
+    { id:'t2',  text:'اعمل تأشيرة الوالدين + سجّلهم على Nusuk', deadline:'2026-10-05', done:false },
+    { id:'t3',  text:'احجز فندق مكة (أوضتين)', deadline:'2026-10-05', done:false },
+    { id:'t4',  text:'احجز تذاكر الرجوع الرياض → القاهرة (الوالدين)', deadline:'2026-10-15', done:false },
+    { id:'t5',  text:'اشترِ السراير والمراتب + السجادة والديكورات', deadline:'2026-10-20', done:false },
+    { id:'t6',  text:'اعمل إصلاحات المكيف والسباكة + فلتر الدش وكرسي المكتب', deadline:'2026-10-20', done:false },
+    { id:'t7',  text:'جهّز الإحرام وأغراض العمرة', deadline:'2026-10-25', done:false },
+    { id:'t8',  text:'اعمل صيانة سريعة للسيارة قبل الخط', deadline:'2026-10-27', done:false },
+    { id:'t9',  text:'حدد ميقات الإحرام (قرن المنازل)', deadline:'2026-10-29', done:false },
+    { id:'t10', text:'نسّق مقابلة سهيل في مكة', deadline:'2026-10-29', done:false },
+    { id:'t11', text:'نزّل Webook واحجز تذاكر البوليفارد', deadline:'2026-11-08', done:false },
+    { id:'t12', text:'خطط لخروجة الدرعية/المتحف', deadline:'2026-11-10', done:false },
+    { id:'t13', text:'تأكد من تذاكر الرجوع للقاهرة', deadline:'2026-11-25', done:false }
+  ];
+
+  var tasksEl = document.getElementById('tasks');
+  var selectedDay = null;
+
+  function taskById(id){ return tasks.find(function(t){ return t.id === id; }); }
+  function taskIndex(id){ return tasks.findIndex(function(t){ return t.id === id; }); }
+
+  function renderTasks(){
+    tasksEl.innerHTML = tasks.map(function(t, i){
+      var up = i > 0 ? '<button class="tbtn" data-up="'+t.id+'" title="تحريك لفوق">▲</button>' : '<span class="tbtn gap"></span>';
+      var down = i < tasks.length-1 ? '<button class="tbtn" data-down="'+t.id+'" title="تحريك لتحت">▼</button>' : '<span class="tbtn gap"></span>';
+      return '<div class="tcard'+(t.done?' done':'')+'" data-id="'+t.id+'">'+
+        '<div class="trow">'+
+          '<input type="checkbox" class="tdone" data-done="'+t.id+'" '+(t.done?'checked':'')+'>'+
+          '<input type="text" class="ttext" value="'+esc(t.text)+'" data-text="'+t.id+'">'+
+          '<button class="tdel" data-del="'+t.id+'" title="حذف">✕</button>'+
+        '</div>'+
+        '<div class="trow sub">'+
+          '<span class="tlbl">🗓 الديدلاين</span>'+
+          '<input type="date" class="tdate" value="'+(t.deadline||'')+'" data-date="'+t.id+'">'+
+          '<span class="tspacer"></span>'+ up + down +
+        '</div>'+
+      '</div>';
     }).join('');
     updateProgress();
   }
+
   function updateProgress(){
-    var n = Object.keys(done).filter(function(k){ return done[k]; }).length;
-    document.getElementById('ck-progress').textContent = 'تم '+n+' من '+totalTasks+' مهام';
+    var n = tasks.filter(function(t){ return t.done; }).length;
+    document.getElementById('ck-progress').textContent = 'تم '+n+' من '+tasks.length+' مهام';
   }
-  document.getElementById('checklist').addEventListener('change', function(e){
-    if (e.target.tagName === 'INPUT'){
-      var row = e.target.closest('.ck');
-      done[row.dataset.key] = e.target.checked;
-      row.classList.toggle('done', e.target.checked);
-      updateProgress();
-      saveState();
+
+  tasksEl.addEventListener('input', function(e){
+    var t = e.target;
+    if (t.hasAttribute('data-text')){
+      var it = taskById(t.dataset.text);
+      if (it){ it.text = t.value; saveState(); refreshViews(); }
     }
   });
+  tasksEl.addEventListener('change', function(e){
+    var t = e.target;
+    if (t.hasAttribute('data-done')){
+      var it = taskById(t.dataset.done);
+      if (it){ it.done = t.checked; t.closest('.tcard').classList.toggle('done', t.checked); updateProgress(); saveState(); refreshViews(); }
+    } else if (t.hasAttribute('data-date')){
+      var it = taskById(t.dataset.date);
+      if (it){ it.deadline = t.value || ''; saveState(); refreshViews(); }
+    }
+  });
+  tasksEl.addEventListener('click', function(e){
+    var btn = e.target.closest('button');
+    if (!btn) return;
+    if (btn.hasAttribute('data-del')){
+      var i = taskIndex(btn.dataset.del);
+      if (i >= 0){ tasks.splice(i,1); renderTasks(); saveState(); refreshViews(); }
+    } else if (btn.hasAttribute('data-up')){
+      var i = taskIndex(btn.dataset.up);
+      if (i > 0){ var a = tasks[i-1], b = tasks[i]; tasks[i-1] = b; tasks[i] = a; renderTasks(); saveState(); }
+    } else if (btn.hasAttribute('data-down')){
+      var i = taskIndex(btn.dataset.down);
+      if (i >= 0 && i < tasks.length-1){ var a = tasks[i+1], b = tasks[i]; tasks[i+1] = b; tasks[i] = a; renderTasks(); saveState(); }
+    }
+  });
+  document.getElementById('task-add').addEventListener('click', function(){
+    tasks.push({ id:'t'+Date.now()+Math.floor(Math.random()*999), text:'مهمة جديدة', deadline:'', done:false });
+    renderTasks(); saveState(); refreshViews();
+  });
+
+  /* ---------- الكالندر ---------- */
+  function milestonesOn(date){ return milestones.filter(function(m){ return m.date === date; }); }
+  function tasksOn(date){ return tasks.filter(function(t){ return t.deadline === date; }); }
+
+  function renderCalendar(){
+    var html = '';
+    [8,9,10].forEach(function(m){
+      var days = new Date(2026, m+1, 0).getDate();
+      var startWd = new Date(2026, m, 1).getDay();
+      html += '<div class="cal-month"><h5>'+MONTHS[m]+' 2026</h5><div class="cal-grid">';
+      WD.forEach(function(w){ html += '<div class="cal-wd">'+w+'</div>'; });
+      for (var i=0;i<startWd;i++) html += '<div class="cal-cell empty"></div>';
+      for (var d=1; d<=days; d++){
+        var date = iso(new Date(2026, m, d));
+        var ms = milestonesOn(date);
+        var ts = tasksOn(date);
+        var cls = 'cal-cell';
+        if (date === TODAY) cls += ' today';
+        if (date < TODAY) cls += ' past';
+        var dots = '';
+        ms.forEach(function(x){ dots += '<span class="cdot m" title="'+esc(x.icon+' '+x.label)+'"></span>'; });
+        ts.forEach(function(x){ dots += '<span class="cdot t" title="'+esc('🔔 ديدلاين: '+x.text)+'"></span>'; });
+        html += '<div class="'+cls+'" data-day="'+date+'"><span class="cnum">'+d+'</span>'+(dots?'<span class="cdots">'+dots+'</span>':'')+'</div>';
+      }
+      html += '</div></div>';
+    });
+    document.getElementById('calendar').innerHTML = html;
+    if (!selectedDay) selectedDay = TODAY;
+    selectDay(selectedDay);
+  }
+
+  function selectDay(date){
+    selectedDay = date;
+    document.querySelectorAll('#calendar .cal-cell').forEach(function(c){ c.classList.remove('sel'); });
+    var cell = document.querySelector('#calendar .cal-cell[data-day="'+date+'"]');
+    if (cell) cell.classList.add('sel');
+    renderDayDetail(date);
+  }
+
+  function renderDayDetail(date){
+    var ms = milestonesOn(date);
+    var ts = tasksOn(date);
+    var html = '<div class="dd-head">📅 '+fmtDateAr(date)+' <span class="dd-wd">('+WD[pdate(date).getDay()]+')</span></div>';
+    if (!ms.length && !ts.length){
+      html += '<div class="dd-empty">مفيش أحداث أو ديدلاين في اليوم ده.</div>';
+    } else {
+      if (ms.length) html += ms.map(function(x){ return '<div class="dd-ms">'+x.icon+' <b>'+x.label+'</b></div>'; }).join('');
+      if (ts.length) html += ts.map(function(x){ return '<div class="dd-task'+(x.done?' done':'')+'">🔔 ديدلاين: '+esc(x.text)+'</div>'; }).join('');
+    }
+    document.getElementById('daydetail').innerHTML = html;
+  }
+
+  document.getElementById('calendar').addEventListener('click', function(e){
+    var cell = e.target.closest('.cal-cell');
+    if (cell && cell.dataset.day) selectDay(cell.dataset.day);
+  });
+
+  /* ---------- المخطط الزمني (Gantt) ---------- */
+  function renderGantt(){
+    var start = pdate(RANGE_START).getTime();
+    var end = pdate(RANGE_END).getTime();
+    var total = end - start;
+    function x(date){ return Math.max(0, Math.min(100, (pdate(date).getTime() - start) / total * 100)); }
+
+    var mHtml = milestones.map(function(m, i){
+      var above = i % 2 === 0;
+      return '<div class="g-mark" style="left:'+x(m.date)+'%" data-above="'+(above?'1':'0')+'">'+
+        '<div class="g-dot" title="'+esc(m.icon+' '+m.label+' — '+fmtDateAr(m.date))+'"></div>'+
+        '<div class="g-mlabel">'+m.icon+' '+m.label+'</div>'+
+      '</div>';
+    }).join('');
+
+    var withDl = tasks.filter(function(t){ return t.deadline; });
+    var noDl = tasks.filter(function(t){ return !t.deadline; });
+
+    var tHtml = withDl.map(function(t){
+      var w = Math.max(2, x(t.deadline) - x(RANGE_START));
+      return '<div class="g-taskrow">'+
+        '<span class="g-taskname" title="'+esc(t.text)+'">'+esc(t.text)+'</span>'+
+        '<div class="g-tasklane"><div class="g-task '+(t.done?'done':'')+'" style="left:'+x(RANGE_START)+'%;width:'+w+'%" title="'+esc(t.text)+' — ديدلاين '+fmtDateAr(t.deadline)+'"></div></div>'+
+        '<span class="g-taskdl">'+fmtDateAr(t.deadline)+'</span>'+
+      '</div>';
+    }).join('');
+
+    var noDlHtml = noDl.length ? '<div class="g-nodl">بدون ديدلاين: '+noDl.map(function(t){ return esc(t.text); }).join('، ')+'</div>' : '';
+
+    document.getElementById('gantt').innerHTML =
+      '<div class="gantt" dir="ltr">'+
+        '<div class="g-axis"><span>22 سبتمبر</span><span>أكتوبر</span><span>نوفمبر</span><span>30 نوفمبر</span></div>'+
+        '<div class="g-track">'+mHtml+'</div>'+
+        '<div class="g-tasks">'+tHtml+'</div>'+
+      '</div>'+noDlHtml;
+  }
+
+  function refreshViews(){
+    renderCalendar();
+    renderGantt();
+  }
 
   /* ---------- Init ---------- */
   var saved = loadState();
   if (saved){
     if (Array.isArray(saved.groups) && saved.groups.length) groups = saved.groups;
     if (saved.mode === 'min' || saved.mode === 'real') mode = saved.mode;
-    if (saved.done && typeof saved.done === 'object') done = saved.done;
+    if (Array.isArray(saved.tasks)) tasks = saved.tasks;
   }
   document.getElementById('mode-min').classList.toggle('active', mode === 'min');
   document.getElementById('mode-real').classList.toggle('active', mode === 'real');
   renderBudget();
   renderPlaces('all');
-  renderChecklist();
+  renderTasks();
+  renderCalendar();
+  renderGantt();
 })();
 </script>
 </body>
