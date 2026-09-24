@@ -199,13 +199,12 @@
   .g-axisline{position:relative;height:22px}
   .g-linebg{position:absolute;left:0;right:0;top:10px;height:2px;background:#e2e8f0;border-radius:2px}
   .g-dot{position:absolute;top:4px;width:14px;height:14px;border-radius:50%;background:var(--teal);border:2px solid #fff;box-shadow:0 0 0 1.5px var(--teal);transform:translateX(-50%);cursor:help}
-  .g-months{position:relative;height:15px;font-size:10px;color:var(--muted)}
-  .g-months span{position:absolute;white-space:nowrap}
+  .g-monthrow{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:10px}
   .g-legend{margin-bottom:12px}
   .g-leg{display:flex;align-items:center;gap:6px;font-size:11.5px;padding:3px 0;border-bottom:1px dashed #f1f5f9}
   .g-legdot{width:9px;height:9px;border-radius:50%;background:var(--teal);flex:none}
-  .g-leg b{color:var(--teal-dark);white-space:nowrap;font-size:11px}
-  .g-leg span{color:var(--ink)}
+  .g-leg b{color:var(--teal-dark);white-space:nowrap;font-size:11px;flex:none}
+  .g-legtext{color:var(--ink);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .g-tasks{margin-top:4px}
   .g-titem{margin-bottom:10px}
   .g-thead{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;margin-bottom:3px}
@@ -726,26 +725,14 @@
     var total = end - start;
     function x(date){ return Math.max(0, Math.min(100, (pdate(date).getTime() - start) / total * 100)); }
 
-    var monthMarks = [
-      { date:'2026-09-22', label:'22 سبتمبر' },
-      { date:'2026-10-01', label:'أكتوبر' },
-      { date:'2026-11-01', label:'نوفمبر' },
-      { date:'2026-11-30', label:'30 نوفمبر' }
-    ];
-    var monthsHtml = monthMarks.map(function(m){
-      var st;
-      if (m.date === RANGE_START) st = 'left:0';
-      else if (m.date === RANGE_END) st = 'right:0';
-      else st = 'left:'+x(m.date)+'%;transform:translateX(-50%)';
-      return '<span style="'+st+'">'+m.label+'</span>';
-    }).join('');
+    var monthsHtml = '<span>22 سبتمبر</span><span>أكتوبر</span><span>نوفمبر</span><span>30 نوفمبر</span>';
 
     var dotsHtml = milestones.map(function(m){
       return '<div class="g-dot" style="left:'+x(m.date)+'%" title="'+esc(m.icon+' '+m.label+' — '+fmtDateAr(m.date))+'"></div>';
     }).join('');
 
     var legendHtml = milestones.slice().sort(function(a,b){ return a.date < b.date ? -1 : (a.date > b.date ? 1 : 0); }).map(function(m){
-      return '<div class="g-leg"><span class="g-legdot"></span><b>'+fmtDateAr(m.date)+'</b><span>'+m.icon+' '+m.label+'</span></div>';
+      return '<div class="g-leg"><span class="g-legdot"></span><b>'+fmtDateAr(m.date)+'</b><span class="g-legtext">'+m.icon+' '+m.label+'</span></div>';
     }).join('');
 
     var withDl = tasks.filter(function(t){ return t.deadline; });
@@ -764,7 +751,7 @@
     document.getElementById('gantt').innerHTML =
       '<div class="g-chart">'+
         '<div class="g-axisline"><div class="g-linebg"></div>'+dotsHtml+'</div>'+
-        '<div class="g-months">'+monthsHtml+'</div>'+
+        '<div class="g-monthrow">'+monthsHtml+'</div>'+
       '</div>'+
       '<div class="g-legend">'+legendHtml+'</div>'+
       '<div class="g-tasks">'+tHtml+'</div>'+
